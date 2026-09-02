@@ -6,6 +6,8 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
+const MAILERLITE_GROUP_ID = '197514160168240737'; // Strive Online Leads
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -17,23 +19,50 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'A valid email is required' });
   }
 
+  const cleanEmail = email.toLowerCase().trim();
+
+  // Save to Supabase first — this is our own record of every lead,
+  // independent of whatever email tool we're using.
   try {
     const { error } = await supabase
       .from('waitlist_signups')
-      .insert([{ name: name || null, email: email.toLowerCase().trim() }]);
+      .insert([{ name: name || null, email: cleanEmail }]);
 
-    if (error) {
-      // Duplicate email is fine — treat as a successful "already on the list"
-      if (error.code === '23505') {
-        return res.status(200).json({ success: true, alreadyExists: true });
-      }
+    if (error && error.code !== '23505') {
+      // 23505 = duplicate email, that's fine, not a real failure
       console.error('Supabase insert error:', error);
       return res.status(500).json({ error: 'Something went wrong saving your signup' });
     }
-
-    return res.status(200).json({ success: true });
   } catch (err) {
-    console.error('Waitlist handler error:', err);
+    console.error('Supabase handler error:', err);
     return res.status(500).json({ error: 'Unexpected server error' });
   }
+
+  // Add to MailerLite — this is what actually triggers the automation
+  // that emails them the Teachable enrollment link.
+  try {
+    const mlResponse = await fetch('https://connect.mailerlite.com/api/subscribers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY}`,
+      },
+      body: JSON.stringify({
+        email: cleanEmail,
+        fields: { name: name || '' },
+        groups: [MAILERLITE_GROUP_ID],
+      }),
+    });
+
+    if (!mlResponse.ok) {
+      const errText = await mlResponse.text();
+      console.error('MailerLite error:', errText);
+      // Don't fail the whole request — the lead is already saved in Supabase,
+      // worst case they just don't get the automated email yet.
+    }
+  } catch (err) {
+    console.error('MailerLite request failed:', err);
+  }
+
+  return res.status(200).json({ success: true });
 }
