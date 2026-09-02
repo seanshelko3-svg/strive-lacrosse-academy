@@ -246,24 +246,17 @@
 </section>
 
 <section class="schedule" id="schedule">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">This week</div>
-      <h2>Group sessions</h2>
+  <div class="wrap waitlist-box">
+    <div>
+      <div class="eyebrow">Fall 2026</div>
+      <h2>Group training returns in October</h2>
+      <p>Fall group training kicks off in October at Springside Chestnut Hill Academy. Full schedule, levels, and pricing coming soon.</p>
     </div>
-    <table>
-      <thead>
-        <tr><th>Day</th><th>Time</th><th>Level</th><th>Location</th><th style="text-align:right">Price</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Tuesday</td><td>4:30 – 5:45 PM</td><td class="level">Beginner</td><td>Wesley Bishop Turf, Moorestown</td><td class="price">$65</td></tr>
-        <tr><td>Tuesday</td><td>6:00 – 7:15 PM</td><td class="level">Intermediate</td><td>Wesley Bishop Turf, Moorestown</td><td class="price">$65</td></tr>
-        <tr><td>Tuesday</td><td>7:30 – 8:45 PM</td><td class="level">Elite</td><td>Wesley Bishop Turf, Moorestown</td><td class="price">$65</td></tr>
-        <tr><td>Thursday</td><td>4:30 – 5:45 PM</td><td class="level">Beginner</td><td>Mt Laurel Turf Fields</td><td class="price">$65</td></tr>
-        <tr><td>Thursday</td><td>6:00 – 7:15 PM</td><td class="level">Intermediate</td><td>Mt Laurel Turf Fields</td><td class="price">$65</td></tr>
-        <tr><td>Thursday</td><td>7:30 – 8:45 PM</td><td class="level">Elite</td><td>Mt Laurel Turf Fields</td><td class="price">$65</td></tr>
-      </tbody>
-    </table>
+    <form class="waitlist-form" id="fallTrainingForm">
+      <input type="text" placeholder="Athlete name" required>
+      <input type="email" placeholder="Email address" required>
+      <button type="submit" class="btn btn-primary" style="justify-content:center; border:none; cursor:pointer;">I'm interested</button>
+    </form>
   </div>
 </section>
 
@@ -331,6 +324,34 @@
       if (!response.ok) throw new Error('Request failed');
 
       form.innerHTML = '<p style="color:#74DAA4; font-family:Rajdhani; font-weight:600; text-transform:uppercase; letter-spacing:0.03em; font-size:16px;">You\'re on the list.</p>';
+    } catch (err) {
+      button.textContent = originalButtonText;
+      button.disabled = false;
+      alert('Something went wrong — please try again in a moment.');
+    }
+  });
+
+    document.getElementById('fallTrainingForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const form = this;
+    const button = form.querySelector('button[type="submit"]');
+    const name = form.querySelector('input[type="text"]').value;
+    const email = form.querySelector('input[type="email"]').value;
+    const originalButtonText = button.textContent;
+
+    button.textContent = 'Submitting...';
+    button.disabled = true;
+
+    try {
+      const response = await fetch('/api/fall-training', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email })
+      });
+
+      if (!response.ok) throw new Error('Request failed');
+
+      form.innerHTML = '<p style="color:#74DAA4; font-family:Rajdhani; font-weight:600; text-transform:uppercase; letter-spacing:0.03em; font-size:16px;">You\'re on the list — we\'ll be in touch.</p>';
     } catch (err) {
       button.textContent = originalButtonText;
       button.disabled = false;
