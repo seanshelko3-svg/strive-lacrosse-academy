@@ -230,7 +230,7 @@
         <div class="num mono">03</div>
         <h3>Strive Online</h3>
         <p>Weekly training guides, drill breakdowns, and Strive IQ progress tracking — coached by Andrew, from anywhere.</p>
-        <a href="#waitlist" class="link">Join the waitlist →</a>
+        <a href="#waitlist" class="link">Get started →</a>
       </div>
     </div>
   </div>
@@ -263,14 +263,14 @@
 <section class="waitlist" id="waitlist">
   <div class="wrap waitlist-box">
     <div>
-      <div class="eyebrow">Coming soon</div>
-      <h2>Strive Online is almost here.</h2>
-      <p>Be first in line for weekly training guides, drill breakdowns, and your own Strive IQ scorecard — built for players outside South Jersey.</p>
+      <div class="eyebrow">Live now</div>
+      <h2>Strive Online is here.</h2>
+      <p>Weekly training guides, drill breakdowns, and your own Strive IQ scorecard — coached by Andrew, from anywhere. First 50 to join get a free shooting form evaluation.</p>
     </div>
     <form class="waitlist-form" id="waitlistForm">
       <input type="text" placeholder="Athlete name" required>
       <input type="email" placeholder="Email address" required>
-      <button type="submit" class="btn btn-primary" style="justify-content:center; border:none; cursor:pointer;">Join the waitlist</button>
+      <button type="submit" class="btn btn-primary" style="justify-content:center; border:none; cursor:pointer;">Get started</button>
     </form>
   </div>
 </section>
@@ -311,7 +311,7 @@
     const email = form.querySelector('input[type="email"]').value;
     const originalButtonText = button.textContent;
 
-    button.textContent = 'Joining...';
+    button.textContent = 'Submitting...';;
     button.disabled = true;
 
     try {
@@ -323,7 +323,7 @@
 
       if (!response.ok) throw new Error('Request failed');
 
-      form.innerHTML = '<p style="color:#74DAA4; font-family:Rajdhani; font-weight:600; text-transform:uppercase; letter-spacing:0.03em; font-size:16px;">You\'re on the list.</p>';
+      form.innerHTML = '<p style="color:#74DAA4; font-family:Rajdhani; font-weight:600; text-transform:uppercase; letter-spacing:0.03em; ...font-size:16px;">You're in — check your email for the link.</p>';
     } catch (err) {
       button.textContent = originalButtonText;
       button.disabled = false;
