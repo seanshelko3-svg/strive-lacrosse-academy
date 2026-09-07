@@ -274,7 +274,56 @@
     </form>
   </div>
 </section>
+<section class="waitlist" id="become-athlete">
+  <div class="wrap waitlist-box">
+    <div>
+      <div class="eyebrow">Get started</div>
+      <h2>Become a Strive Athlete</h2>
+      <p>Tell us who you are and what you're looking for — we'll follow up with the right next step, whether that's Fall Training, virtual coaching calls, or Strive Online.</p>
+    </div>
+    <form class="waitlist-form" id="athleteSignupForm">
+      <input type="text" placeholder="Athlete name" required>
+      <input type="email" placeholder="Email address" required>
+      <select name="interest" required style="background: var(--surface-raised); border: 1px solid var(--line); color: var(--paper); padding: 15px 18px; font-family: 'Inter'; font-size: 14px; border-radius: 2px;">
+        <option value="" disabled selected>What are you interested in?</option>
+        <option value="fall_training">In-person Fall Training</option>
+        <option value="virtual_calls">Virtual 1-on-1 Coaching Calls</option>
+        <option value="online_course">Strive Online Course</option>
+        <option value="not_sure">Not sure yet</option>
+      </select>
+      <button type="submit" class="btn btn-primary" style="justify-content:center; border:none; cursor:pointer;">Get started</button>
+      <p id="athleteSignupMessage" style="font-size:13px; color:var(--gray); margin:0;"></p>
+    </form>
+  </div>
+</section>
 
+<script>
+  document.getElementById('athleteSignupForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const messageEl = document.getElementById('athleteSignupMessage');
+    const payload = {
+      name: form.querySelector('input[type="text"]').value,
+      email: form.querySelector('input[type="email"]').value,
+      interest: form.querySelector('select[name="interest"]').value,
+    };
+
+    messageEl.textContent = 'Submitting...';
+    try {
+      const res = await fetch('/api/athlete-signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('Request failed');
+      messageEl.textContent = "You're in! Check your email for next steps.";
+      form.reset();
+    } catch (err) {
+      messageEl.textContent = 'Something went wrong — please try again.';
+    }
+  });
+</script>
+  
 <footer id="book">
   <div class="wrap">
     <div class="foot-row">
