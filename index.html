@@ -122,6 +122,22 @@
   td.price { font-family: 'Space Mono'; text-align: right; }
   tr:hover td { background: rgba(245,246,244,0.02); }
 
+  /* booking */
+  .bk-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 60px; align-items: start; }
+  .bk-open { display: inline-flex; align-items: center; gap: 9px; margin-top: 22px;
+    border: 1px solid rgba(116,218,164,0.35); background: rgba(116,218,164,0.08);
+    padding: 9px 16px; border-radius: 2px; font-size: 13px; color: var(--teal-bright); letter-spacing: 0.03em; }
+  .bk-open .dot { background: var(--teal-bright); }
+  .bk-side { background: var(--surface-raised); border: 1px solid var(--line); padding: 32px 28px; }
+  .bk-side h3 { font-size: 20px; margin-bottom: 6px; }
+  .bk-side .sub { color: var(--gray); font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+  .bk-price { display: flex; justify-content: space-between; align-items: baseline;
+    padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .bk-price:last-of-type { border-bottom: none; }
+  .bk-price .amt { font-family: 'Space Mono', monospace; color: var(--teal-bright); }
+  .bk-cta { display: flex; justify-content: center; width: 100%; margin-top: 26px; border: none; cursor: pointer; font-size: 15px; }
+  .bk-fine { font-size: 12.5px; color: var(--gray); line-height: 1.6; margin-top: 16px; text-align: center; }
+
   /* waitlist */
   .waitlist { padding: 100px 0; background: var(--surface); border-top: 1px solid var(--line); }
   .waitlist-box { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; }
@@ -146,6 +162,7 @@
     .navlinks { display: none; }
     .meters, .cards, .stats .wrap { grid-template-columns: 1fr; }
     .waitlist-box { grid-template-columns: 1fr; }
+    .bk-grid { grid-template-columns: 1fr; gap: 36px; }
     .stat { border-left: none; border-top: 1px solid var(--line); }
     .stat:first-child { border-top: none; }
   }
@@ -167,7 +184,7 @@
 
 <section class="hero">
   <div class="wrap">
-    <div class="eyebrow">South Jersey & Philadelphia <span class="mono">— Est. 2014</span></div>
+    <div class="eyebrow">South Jersey &amp; Philadelphia <span class="mono">— Est. 2014</span></div>
     <h1>Don't work<br>for it. <span class="skew">Strive</span> for it.</h1>
     <p>Offense-first lacrosse training built on a real curriculum, real coaching, and a scoring system that shows every athlete exactly where they stand.</p>
     <div class="hero-ctas">
@@ -188,7 +205,7 @@
     </div>
     <div class="meters">
       <div class="meter-card">
-        <div class="meter-top"><span class="label">Passing & catching</span><span class="score">7.4 / 10</span></div>
+        <div class="meter-top"><span class="label">Passing &amp; catching</span><span class="score">7.4 / 10</span></div>
         <div class="meter-bar"><div class="meter-fill" data-w="74"></div></div>
         <p class="meter-note">Grip, accuracy, and two-hand catching — tracked dominant and off hand.</p>
       </div>
@@ -217,14 +234,14 @@
       <div class="card">
         <div class="num mono">01</div>
         <h3>Group training</h3>
-        <p>Small groups, max 10 players. Beginner, intermediate, and elite levels, twice a week at two field locations.</p>
+        <p>Small groups, max 12 players. High school and grades 3–8, twice a week at Hartford Crossing in Medford.</p>
         <a href="#schedule" class="link">View schedule →</a>
       </div>
       <div class="card">
         <div class="num mono">02</div>
         <h3>Private training</h3>
         <p>One-on-one reps built around your position, your weaknesses, and your goals. Direct coaching, no waiting your turn.</p>
-        <a href="#book" class="link">Get in touch →</a>
+        <a href="#book" class="link">Book a private →</a>
       </div>
       <div class="card featured" id="online">
         <div class="num mono">03</div>
@@ -246,17 +263,62 @@
 </section>
 
 <section class="schedule" id="schedule">
-  <div class="wrap waitlist-box">
-    <div>
-      <div class="eyebrow">Fall 2026</div>
-      <h2>Group training returns in October</h2>
-      <p>Fall group training kicks off in October at Springside Chestnut Hill Academy. Full schedule, levels, and pricing coming soon.</p>
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:40px;">
+      <div class="eyebrow">Fall 2026 <span class="mono">— Hartford Crossing, Medford</span></div>
+      <h2>Group training starts October 6.</h2>
     </div>
-    <form class="waitlist-form" id="fallTrainingForm">
-      <input type="text" placeholder="Athlete name" required>
-      <input type="email" placeholder="Email address" required>
-      <button type="submit" class="btn btn-primary" style="justify-content:center; border:none; cursor:pointer;">I'm interested</button>
-    </form>
+
+    <div class="bk-grid" id="book">
+      <div>
+        <table>
+          <thead>
+            <tr><th>Session</th><th>Days</th><th>Time</th><th style="text-align:right;">Drop-in</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="level">High school</td>
+              <td>Tue &amp; Thu</td>
+              <td>4:00 – 5:00 PM</td>
+              <td class="price">$40</td>
+            </tr>
+            <tr>
+              <td class="level">Grades 3–8</td>
+              <td>Tue &amp; Thu</td>
+              <td>5:00 – 6:00 PM</td>
+              <td class="price">$40</td>
+            </tr>
+            <tr>
+              <td class="level">Private 1-on-1</td>
+              <td>Tue, Wed, Thu &amp; Sat</td>
+              <td>By appointment</td>
+              <td class="price">$120</td>
+            </tr>
+            <tr>
+              <td class="level">Virtual call</td>
+              <td>Any day</td>
+              <td>Film, IQ &amp; planning</td>
+              <td class="price">$35 / $75</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="bk-open"><span class="dot"></span> 12 spots per group — live count shown at checkout</div>
+      </div>
+
+      <aside class="bk-side">
+        <h3>Book it now</h3>
+        <p class="sub">Accounts, scheduling and payment all run through the Strive app. Takes about two minutes.</p>
+
+        <div class="bk-price"><span>Group drop-in</span><span class="amt">$40</span></div>
+        <div class="bk-price"><span>Group six-pack</span><span class="amt">$210</span></div>
+        <div class="bk-price"><span>Private, per hour</span><span class="amt">$120</span></div>
+        <div class="bk-price"><span>Virtual — 30 min</span><span class="amt">$35</span></div>
+        <div class="bk-price"><span>Virtual — 60 min</span><span class="amt">$75</span></div>
+
+        <a href="https://strivelaxapp.com" class="btn btn-primary bk-cta">Book a session →</a>
+        <p class="bk-fine">Six-packs save $30 and track your remaining sessions automatically.</p>
+      </aside>
+    </div>
   </div>
 </section>
 
@@ -274,12 +336,13 @@
     </form>
   </div>
 </section>
+
 <section class="waitlist" id="become-athlete">
   <div class="wrap waitlist-box">
     <div>
-      <div class="eyebrow">Get started</div>
+      <div class="eyebrow">Not sure yet?</div>
       <h2>Become a Strive Athlete</h2>
-      <p>Tell us who you are and what you're looking for — we'll follow up with the right next step, whether that's Fall Training, virtual coaching calls, or Strive Online.</p>
+      <p>Ready to book? Use the schedule above. Still deciding — tell us who you are and what you're after, and we'll point you at the right next step.</p>
     </div>
     <form class="waitlist-form" id="athleteSignupForm">
       <input type="text" placeholder="Athlete name" required>
@@ -297,44 +360,18 @@
   </div>
 </section>
 
-<script>
-  document.getElementById('athleteSignupForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const messageEl = document.getElementById('athleteSignupMessage');
-    const payload = {
-      name: form.querySelector('input[type="text"]').value,
-      email: form.querySelector('input[type="email"]').value,
-      interest: form.querySelector('select[name="interest"]').value,
-    };
-
-    messageEl.textContent = 'Submitting...';
-    try {
-      const res = await fetch('/api/athlete-signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error('Request failed');
-      messageEl.textContent = "You're in! Check your email for next steps.";
-      form.reset();
-    } catch (err) {
-      messageEl.textContent = 'Something went wrong — please try again.';
-    }
-  });
-</script>
-  
-<footer id="book">
+<footer>
   <div class="wrap">
     <div class="foot-row">
       <div class="logo">STRIVE<span>.</span></div>
       <div class="foot-links">
+        <a href="https://strivelaxapp.com">Book a session</a>
         <a href="mailto:strivelacrosseacademy@gmail.com">strivelacrosseacademy@gmail.com</a>
         <a href="tel:+18563048673">(856) 304-8673</a>
         <a href="https://www.instagram.com/strivelacrosseacademy/">Instagram</a>
       </div>
     </div>
-    <div class="copyright">© 2026 Strive Lacrosse Academy — South Jersey & Philadelphia</div>
+    <div class="copyright">© 2026 Strive Lacrosse Academy — South Jersey &amp; Philadelphia</div>
   </div>
 </footer>
 
@@ -360,7 +397,7 @@
     const email = form.querySelector('input[type="email"]').value;
     const originalButtonText = button.textContent;
 
-    button.textContent = 'Submitting...';;
+    button.textContent = 'Submitting...';
     button.disabled = true;
 
     try {
@@ -380,31 +417,28 @@
     }
   });
 
-    document.getElementById('fallTrainingForm').addEventListener('submit', async function(e) {
+  document.getElementById('athleteSignupForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const form = this;
-    const button = form.querySelector('button[type="submit"]');
-    const name = form.querySelector('input[type="text"]').value;
-    const email = form.querySelector('input[type="email"]').value;
-    const originalButtonText = button.textContent;
+    const form = e.target;
+    const messageEl = document.getElementById('athleteSignupMessage');
+    const payload = {
+      name: form.querySelector('input[type="text"]').value,
+      email: form.querySelector('input[type="email"]').value,
+      interest: form.querySelector('select[name="interest"]').value,
+    };
 
-    button.textContent = 'Submitting...';
-    button.disabled = true;
-
+    messageEl.textContent = 'Submitting...';
     try {
-      const response = await fetch('/api/fall-training', {
+      const res = await fetch('/api/athlete-signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email })
+        body: JSON.stringify(payload),
       });
-
-      if (!response.ok) throw new Error('Request failed');
-
-      form.innerHTML = '<p style="color:#74DAA4; font-family:Rajdhani; font-weight:600; text-transform:uppercase; letter-spacing:0.03em; font-size:16px;">You\'re on the list — we\'ll be in touch.</p>';
+      if (!res.ok) throw new Error('Request failed');
+      messageEl.textContent = "You're in! Check your email for next steps.";
+      form.reset();
     } catch (err) {
-      button.textContent = originalButtonText;
-      button.disabled = false;
-      alert('Something went wrong — please try again in a moment.');
+      messageEl.textContent = 'Something went wrong — please try again.';
     }
   });
 </script>
