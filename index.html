@@ -120,6 +120,7 @@
   td { padding: 18px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
   td.level { color: var(--teal-bright); font-family: 'Rajdhani'; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; }
   td.price { font-family: 'Space Mono'; text-align: right; }
+  .loc { font-size: 12px; color: var(--gray); }
   tr:hover td { background: rgba(245,246,244,0.02); }
 
   /* booking */
@@ -234,7 +235,7 @@
       <div class="card">
         <div class="num mono">01</div>
         <h3>Group training</h3>
-        <p>Small groups, max 12 players. High school and grades 3–8, twice a week at Hartford Crossing in Medford.</p>
+        <p>Max 12 players. High school and grades 3–8 — Tuesdays, Thursdays and Saturdays in Medford, plus Monday nights at Limitless in Philadelphia.</p>
         <a href="#schedule" class="link">View schedule →</a>
       </div>
       <div class="card">
@@ -265,8 +266,8 @@
 <section class="schedule" id="schedule">
   <div class="wrap">
     <div class="section-head" style="margin-bottom:40px;">
-      <div class="eyebrow">Fall 2026 <span class="mono">— Hartford Crossing, Medford</span></div>
-      <h2>Group training starts October 6.</h2>
+      <div class="eyebrow">Fall 2026 <span class="mono">— Medford &amp; Philadelphia</span></div>
+      <h2>Five sessions a week, starting September 28.</h2>
     </div>
 
     <div class="bk-grid" id="book">
@@ -278,45 +279,66 @@
           <tbody>
             <tr>
               <td class="level">High school</td>
-              <td>Tue &amp; Thu</td>
-              <td>4:00 – 5:00 PM</td>
-              <td class="price">$40</td>
+              <td>Tue &amp; Thu<br><span class="loc">Hartford Crossing · turf</span></td>
+              <td>4:00 – 5:00 PM<br><span class="loc">Oct 6 – Nov 19</span></td>
+              <td class="price">$50</td>
             </tr>
             <tr>
               <td class="level">Grades 3–8</td>
-              <td>Tue &amp; Thu</td>
-              <td>5:00 – 6:00 PM</td>
-              <td class="price">$40</td>
+              <td>Tue &amp; Thu<br><span class="loc">Hartford Crossing · turf</span></td>
+              <td>5:00 – 6:00 PM<br><span class="loc">Oct 6 – Nov 19</span></td>
+              <td class="price">$50</td>
+            </tr>
+            <tr>
+              <td class="level">High school</td>
+              <td>Saturdays<br><span class="loc">Hartford Crossing · grass</span></td>
+              <td>9:00 – 10:00 AM<br><span class="loc">Oct 3 – Nov 21</span></td>
+              <td class="price">$50</td>
+            </tr>
+            <tr>
+              <td class="level">Grades 3–8</td>
+              <td>Saturdays<br><span class="loc">Hartford Crossing · grass</span></td>
+              <td>10:00 – 11:00 AM<br><span class="loc">Oct 3 – Nov 21</span></td>
+              <td class="price">$50</td>
+            </tr>
+            <tr>
+              <td class="level">Grades 7–12</td>
+              <td>Mondays<br><span class="loc">Limitless · Philadelphia</span></td>
+              <td>4:00 – 5:30 PM<br><span class="loc">Sept 28 – Oct 26 · 5 weeks · $200 for all five</span></td>
+              <td class="price">$50</td>
             </tr>
             <tr>
               <td class="level">Private 1-on-1</td>
-              <td>Tue, Wed, Thu &amp; Sat</td>
+              <td>Tue, Wed, Thu &amp; Sat<br><span class="loc">Turf across South Jersey</span></td>
               <td>By appointment</td>
               <td class="price">$120</td>
             </tr>
             <tr>
               <td class="level">Virtual call</td>
-              <td>Any day</td>
+              <td>Any day<br><span class="loc">Google Meet</span></td>
               <td>Film, IQ &amp; planning</td>
               <td class="price">$35 / $75</td>
             </tr>
           </tbody>
         </table>
-        <div class="bk-open"><span class="dot"></span> 12 spots per group — live count shown at checkout</div>
+        <div class="bk-open"><span class="dot"></span> 12 spots per session — live count shown at checkout</div>
       </div>
 
       <aside class="bk-side">
         <h3>Book it now</h3>
         <p class="sub">Accounts, scheduling and payment all run through the Strive app. Takes about two minutes.</p>
 
-        <div class="bk-price"><span>Group drop-in</span><span class="amt">$40</span></div>
-        <div class="bk-price"><span>Group six-pack</span><span class="amt">$210</span></div>
+        <div class="bk-price"><span>Group drop-in</span><span class="amt">$50</span></div>
+        <div class="bk-price"><span>Six-pack · Medford</span><span class="amt">$210</span></div>
+        <div class="bk-price"><span>Philly pass · all 5 Mondays</span><span class="amt">$200</span></div>
         <div class="bk-price"><span>Private, per hour</span><span class="amt">$120</span></div>
         <div class="bk-price"><span>Virtual — 30 min</span><span class="amt">$35</span></div>
         <div class="bk-price"><span>Virtual — 60 min</span><span class="amt">$75</span></div>
 
         <a href="https://strivelaxapp.com" class="btn btn-primary bk-cta">Book a session →</a>
-        <p class="bk-fine">Six-packs save $30 and track your remaining sessions automatically.</p>
+        <p class="bk-fine">The six-pack covers any Tuesday, Thursday or Saturday in Medford &mdash; $35 a session.
+        The Philly pass covers all five Mondays at Limitless, so the fifth night is free.
+        <b style="color:var(--amber)">Philly pass closes September 28.</b></p>
       </aside>
     </div>
   </div>
