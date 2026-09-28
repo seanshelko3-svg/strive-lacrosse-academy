@@ -368,22 +368,18 @@
 <section class="waitlist" id="become-athlete">
   <div class="wrap waitlist-box">
     <div>
-      <div class="eyebrow">Not sure yet?</div>
-      <h2>Become a Strive Athlete</h2>
-      <p>Ready to book? Use the schedule above. Still deciding — tell us who you are and what you're after, and we'll point you at the right next step.</p>
+      <div class="eyebrow">New athletes</div>
+      <h2>Your first session is free.</h2>
+      <p>Come train with us on a Saturday. No cost, no commitment. Bring a stick.</p>
     </div>
     <form class="waitlist-form" id="athleteSignupForm">
-      <input type="text" placeholder="Athlete name" required>
-      <input type="email" placeholder="Email address" required>
-      <select name="interest" required style="background: var(--surface-raised); border: 1px solid var(--line); color: var(--paper); padding: 15px 18px; font-family: 'Inter'; font-size: 14px; border-radius: 2px;">
-        <option value="" disabled selected>What are you interested in?</option>
-        <option value="fall_training">In-person Fall Training</option>
-        <option value="virtual_calls">Virtual 1-on-1 Coaching Calls</option>
-        <option value="online_course">Strive Online Course</option>
-        <option value="not_sure">Not sure yet</option>
-      </select>
-      <button type="submit" class="btn btn-primary" style="justify-content:center; border:none; cursor:pointer;">Get started</button>
-      <p id="athleteSignupMessage" style="font-size:13px; color:var(--gray); margin:0;"></p>
+      <input type="text" name="athleteName" placeholder="Athlete name" required>
+      <input type="text" name="gradYear" placeholder="Graduation year" required>
+      <input type="email" name="email" placeholder="Email address" required>
+      <input type="tel" name="phone" placeholder="Parent cell" required>
+      <button type="submit" class="btn btn-primary" style="justify-content:center; border:none; cursor:pointer;">Claim the session</button>
+      <p style="font-size:13px; color:var(--gray); margin:0;">New athletes only. Two spots a week.</p>
+      <p id="athleteSignupMessage" style="font-size:13px; color:var(--teal-bright); margin:0;"></p>
     </form>
   </div>
 </section>
@@ -450,9 +446,11 @@
     const form = e.target;
     const messageEl = document.getElementById('athleteSignupMessage');
     const payload = {
-      name: form.querySelector('input[type="text"]').value,
-      email: form.querySelector('input[type="email"]').value,
-      interest: form.querySelector('select[name="interest"]').value,
+      name: form.querySelector('input[name="athleteName"]').value,
+      gradYear: form.querySelector('input[name="gradYear"]').value,
+      email: form.querySelector('input[name="email"]').value,
+      phone: form.querySelector('input[name="phone"]').value,
+      interest: 'free_session',
     };
 
     messageEl.textContent = 'Submitting...';
@@ -463,7 +461,7 @@
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error('Request failed');
-      messageEl.textContent = "You're in! Check your email for next steps.";
+      messageEl.textContent = "Got it — Coach Andrew will text you to lock in a Saturday.";
       form.reset();
     } catch (err) {
       messageEl.textContent = 'Something went wrong — please try again.';
