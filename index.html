@@ -159,6 +159,32 @@
   .foot-links a:hover { color: var(--paper); }
   .copyright { font-size: 13px; color: var(--gray); margin-top: 24px; }
 
+  /* free-session banner */
+  .fs-banner { background: var(--teal-bright); color: var(--ink); }
+  .fs-banner .wrap { display: flex; align-items: center; justify-content: center;
+    gap: 20px; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; text-align: center; }
+  .fs-text { font-family: 'Rajdhani', sans-serif; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.04em; font-size: 19px; line-height: 1.2; }
+  .fs-btn { background: var(--ink); color: var(--paper); border: none; cursor: pointer;
+    padding: 11px 22px; font-family: 'Rajdhani', sans-serif; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em; font-size: 14px;
+    border-radius: 2px; transition: opacity 0.15s ease; white-space: nowrap; }
+  .fs-btn:hover { opacity: 0.84; }
+
+  /* free-session modal */
+  .fs-modal { position: fixed; inset: 0; z-index: 100; display: none;
+    align-items: center; justify-content: center; padding: 24px;
+    background: rgba(7,11,11,0.86); }
+  .fs-modal.open { display: flex; }
+  .fs-card { background: var(--surface); border: 1px solid var(--line);
+    width: 100%; max-width: 440px; padding: 38px 32px; position: relative;
+    max-height: 90vh; overflow-y: auto; }
+  .fs-close { position: absolute; top: 12px; right: 14px; background: none; border: none;
+    color: var(--gray); font-size: 28px; line-height: 1; cursor: pointer; padding: 4px 8px; }
+  .fs-close:hover { color: var(--paper); }
+  .fs-card h2 { font-size: 30px; margin-bottom: 12px; }
+  .fs-lede { color: var(--gray); font-size: 15px; margin-bottom: 26px; }
+
   @media (max-width: 860px) {
     .navlinks { display: none; }
     .meters, .cards, .stats .wrap { grid-template-columns: 1fr; }
@@ -166,10 +192,21 @@
     .bk-grid { grid-template-columns: 1fr; gap: 36px; }
     .stat { border-left: none; border-top: 1px solid var(--line); }
     .stat:first-child { border-top: none; }
+    .fs-text { font-size: 17px; }
+    .foot-row { justify-content: center; text-align: center; }
+    .foot-links { flex-wrap: wrap; justify-content: center; gap: 14px 22px; }
+    .fs-card { padding: 32px 22px; }
   }
 </style>
 </head>
 <body>
+
+<div class="fs-banner">
+  <div class="wrap">
+    <span class="fs-text">Your first session is free</span>
+    <button type="button" class="fs-btn" data-fs-open>Register here &rarr;</button>
+  </div>
+</div>
 
 <header>
   <nav class="wrap">
@@ -372,15 +409,10 @@
       <h2>Your first session is free.</h2>
       <p>Come train with us on a Saturday. No cost, no commitment. Bring a stick.</p>
     </div>
-    <form class="waitlist-form" id="athleteSignupForm">
-      <input type="text" name="athleteName" placeholder="Athlete name" required>
-      <input type="text" name="gradYear" placeholder="Graduation year" required>
-      <input type="email" name="email" placeholder="Email address" required>
-      <input type="tel" name="phone" placeholder="Parent cell" required>
-      <button type="submit" class="btn btn-primary" style="justify-content:center; border:none; cursor:pointer;">Claim the session</button>
-      <p style="font-size:13px; color:var(--gray); margin:0;">New athletes only. Two spots a week.</p>
-      <p id="athleteSignupMessage" style="font-size:13px; color:var(--teal-bright); margin:0;"></p>
-    </form>
+    <div>
+      <button type="button" class="btn btn-primary" data-fs-open style="width:100%; justify-content:center; border:none; cursor:pointer; font-size:15px;">Claim the session &rarr;</button>
+      <p style="font-size:13px; color:var(--gray); margin:14px 0 0; text-align:center;">New athletes only. Saturdays in Medford, through November 21.</p>
+    </div>
   </div>
 </section>
 
@@ -398,6 +430,24 @@
     <div class="copyright">© 2026 Strive Lacrosse Academy — South Jersey &amp; Philadelphia</div>
   </div>
 </footer>
+
+<div class="fs-modal" id="freeSessionModal" role="dialog" aria-modal="true" aria-labelledby="fsTitle">
+  <div class="fs-card">
+    <button type="button" class="fs-close" data-fs-close aria-label="Close">&times;</button>
+    <div class="eyebrow">New athletes</div>
+    <h2 id="fsTitle">Your first session is free.</h2>
+    <p class="fs-lede">Come train with us on a Saturday. No cost, no commitment. Bring a stick.</p>
+    <form class="waitlist-form" id="athleteSignupForm">
+      <input type="text" name="athleteName" placeholder="Athlete name" required>
+      <input type="text" name="gradYear" placeholder="Graduation year" required>
+      <input type="email" name="email" placeholder="Email address" required>
+      <input type="tel" name="phone" placeholder="Parent cell" required>
+      <button type="submit" class="btn btn-primary" style="justify-content:center; border:none; cursor:pointer;">Claim the session</button>
+      <p style="font-size:13px; color:var(--gray); margin:0;">New athletes only. Saturdays in Medford, through November 21.</p>
+      <p id="athleteSignupMessage" style="font-size:13px; color:var(--teal-bright); margin:0;"></p>
+    </form>
+  </div>
+</div>
 
 <script>
   const meters = document.querySelectorAll('.meter-fill');
@@ -439,6 +489,25 @@
       button.disabled = false;
       alert('Something went wrong — please try again in a moment.');
     }
+  });
+
+  // Free-session modal: opened from the top banner and the section button.
+  const fsModal = document.getElementById('freeSessionModal');
+  function fsOpen() {
+    fsModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    const first = fsModal.querySelector('input');
+    if (first) first.focus();
+  }
+  function fsClose() {
+    fsModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('[data-fs-open]').forEach(b => b.addEventListener('click', fsOpen));
+  document.querySelectorAll('[data-fs-close]').forEach(b => b.addEventListener('click', fsClose));
+  fsModal.addEventListener('click', (e) => { if (e.target === fsModal) fsClose(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && fsModal.classList.contains('open')) fsClose();
   });
 
   document.getElementById('athleteSignupForm').addEventListener('submit', async (e) => {
