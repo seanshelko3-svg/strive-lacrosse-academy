@@ -12,6 +12,7 @@ const MAILERLITE_GROUPS = {
   online_course: '197514160168240737', // Strive Online Leads (triggers "Strive Online Info")
   virtual_calls: '197981965183354801', // Virtual Coaching Interest
   not_sure: '197981966178452495',      // General Interest - Not Sure
+  free_session: '199852274512561279',  // Free Session Requests (site form, new athletes)
 };
 
 export default async function handler(req, res) {
@@ -19,7 +20,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, email, interest, position, gradYear } = req.body || {};
+  const { name, email, interest, position, gradYear, phone } = req.body || {};
 
   if (!name || !email || typeof email !== 'string' || !email.includes('@')) {
     return res.status(400).json({ error: 'A valid name and email are required' });
@@ -29,6 +30,8 @@ export default async function handler(req, res) {
   }
 
   const cleanEmail = email.toLowerCase().trim();
+  // Strip formatting so every cell lands in the same shape: 6095551234.
+  const cleanPhone = typeof phone === 'string' ? phone.replace(/[^0-9]/g, '') : '';
 
   // Save to Supabase first — this is our own record of every lead.
   const { error: dbError } = await supabase.from('athlete_signups').insert({
@@ -37,6 +40,7 @@ export default async function handler(req, res) {
     interest,
     position: position || null,
     grad_year: gradYear || null,
+    phone: cleanPhone || null,
   });
 
   if (dbError) {
@@ -54,7 +58,13 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         email: cleanEmail,
-        fields: { name, position: position || null, grad_year: gradYear || null },
+        fields: {
+          name,
+          position: position || null,
+          grad_year: gradYear || null,
+          phone: cleanPhone || null,
+          lead_source: interest === 'free_session' ? 'Free session form' : null,
+        },
         groups: [MAILERLITE_GROUPS[interest]],
       }),
     });
