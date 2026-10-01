@@ -534,11 +534,11 @@
     <div>
       <div class="eyebrow">New athletes</div>
       <h2>Your first session is free.</h2>
-      <p>Come train with us on a Saturday. No cost, no commitment. Bring a stick.</p>
+      <p>Come train with us. No cost, no commitment. Bring a stick.</p>
     </div>
     <div>
       <button type="button" class="btn btn-primary" data-fs-open style="width:100%; justify-content:center; border:none; cursor:pointer; font-size:15px;">Claim the session &rarr;</button>
-      <p style="font-size:13px; color:var(--gray); margin:14px 0 0; text-align:center;">New athletes only. Saturdays in Medford, through November 21.</p>
+      <p style="font-size:13px; color:var(--gray); margin:14px 0 0; text-align:center;">New athletes only. Any session with an open spot, through November 21.</p>
     </div>
   </div>
 </section>
@@ -563,14 +563,14 @@
     <button type="button" class="fs-close" data-fs-close aria-label="Close">&times;</button>
     <div class="eyebrow">New athletes</div>
     <h2 id="fsTitle">Your first session is free.</h2>
-    <p class="fs-lede">Come train with us on a Saturday. No cost, no commitment. Bring a stick.</p>
+    <p class="fs-lede">Come train with us. No cost, no commitment. Bring a stick.</p>
     <form class="waitlist-form" id="athleteSignupForm">
       <input type="text" name="athleteName" placeholder="Athlete name" required>
       <input type="text" name="gradYear" placeholder="Graduation year" required>
       <input type="email" name="email" placeholder="Email address" required>
       <input type="tel" name="phone" placeholder="Parent cell" required>
       <button type="submit" class="btn btn-primary" style="justify-content:center; border:none; cursor:pointer;">Claim the session</button>
-      <p style="font-size:13px; color:var(--gray); margin:0;">New athletes only. Saturdays in Medford, through November 21.</p>
+      <p style="font-size:13px; color:var(--gray); margin:0;">New athletes only. Any session with an open spot, through November 21.</p>
       <p id="athleteSignupMessage" style="font-size:13px; color:var(--teal-bright); margin:0;"></p>
     </form>
   </div>
@@ -657,7 +657,7 @@
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error('Request failed');
-      messageEl.textContent = "Got it — Coach Andrew will text you to lock in a Saturday.";
+      messageEl.textContent = "Got it — Coach Andrew will text you to lock in a session.";
       form.reset();
     } catch (err) {
       messageEl.textContent = 'Something went wrong — please try again.';
